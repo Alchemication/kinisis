@@ -1,0 +1,12 @@
+{
+	"show_video": true,
+	"min_upload_seconds": 10,
+	"min_motion_frames": 10,
+	"camera_warmup_time": 1,
+	"delta_thresh": 5,
+	"blur_size": [21, 21], 
+	"resolution": [800, 608],
+	"fps": 16,
+	"min_area": 5000,
+        "motion_detected_api": "http://lab-node1/gadget/img-interrogator"
+}
