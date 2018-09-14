@@ -93,10 +93,11 @@ class Looper():
                 if cv2.contourArea(c) < self.conf["min_area"]:
                     continue
 
-                # compute the bounding box for the contour, draw it on the frame,
-                # and update the text
-                (x, y, w, h) = cv2.boundingRect(c)
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                # compute the bounding box for the contour,
+                # draw it on the frame and update the text
+                # in required
+                #(x, y, w, h) = cv2.boundingRect(c)
+                #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 text = "Minor Motion detected"
 
             ###################################################################################
