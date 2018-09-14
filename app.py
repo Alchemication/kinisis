@@ -18,7 +18,7 @@ if app.debug and os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
 def getCurState():
     return jsonify({"msg": "Current state: {}".format(lp.curState())})
 
-@app.route('/api/motion-state/<int:state>', methods=['PUT', 'GET'])
+@app.route('/api/motion-state/<int:state>', methods=['PATCH'])
 def toggleMotionDetect(state):
 
     # stop background process
