@@ -6,6 +6,8 @@ import datetime
 import json
 import time
 import cv2
+import requests
+import socket
 
 # Class to control start/stop/display state of 
 # current looping process
@@ -13,8 +15,8 @@ import cv2
 class Looper():
 
     def __init__(self, confPath='conf.json'):
-        self.conf = json.load(open(confPath)) 
-    
+        self.conf = json.load(open(confPath))
+        
     def curState(self):
         """Get current looping state"""
         return 1 if self._isRunning else 0
@@ -116,9 +118,19 @@ class Looper():
                         
                         print('[INFO] Real motion detected!')
                         
-                        # check to see if we need to do something
-                        # save frame and post it to server
-                        #cv2.imwrite("/tmp/talkingraspi_{}.jpg".format(motionCounter), frame)
+                        # check to see if we need post frame to the API
+                        if self.conf["motion_detected_api"] != "":
+                            cv2.imwrite("./motion-detected-img.jpg", frame)
+                            files = {'upload_file': open("./motion-detected-img.jpg",'rb')}
+                            data = {"node": socket.gethostname()}
+                        
+                            try:
+                                print('[INFO] Trying PUT request with a file')
+                                requests.put(self.conf["motion_detected_api"], files=files, data=data)
+                            except requests.exceptions.RequestException as e:
+                                print('[ERROR] Request failed', e)
+                            else:
+                                print('[INFO] Request succeeded')
 
                         # update the last uploaded timestamp and reset the motion
                         # counter

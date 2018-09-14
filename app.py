@@ -9,16 +9,16 @@ app = Flask(__name__)
 
 # instantiate looper object and start background processing
 # add this crazy hack, otherwise it will be called twice:
-#if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-lp = Looper()
-thread = threading.Thread(target=lp.start)
-thread.start()
+if app.debug and os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    lp = Looper()
+    thread = threading.Thread(target=lp.start)
+    thread.start()
 
 @app.route('/api/motion-state', methods=['GET'])
 def getCurState():
     return jsonify({"msg": "Current state: {}".format(lp.curState())})
 
-@app.route('/api/motion-state/<int:state>', methods=['PATCH'])
+@app.route('/api/motion-state/<int:state>', methods=['PUT', 'GET'])
 def toggleMotionDetect(state):
 
     # stop background process
@@ -37,4 +37,4 @@ def toggleMotionDetect(state):
     return jsonify({"msg": "Process started"})
 
 if __name__ == "__main__":
-    app.run(debug=False, use_reloader=False)
+    app.run()
