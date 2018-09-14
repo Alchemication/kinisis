@@ -1,7 +1,7 @@
 {
 	"show_video": true,
-	"min_upload_seconds": 10,
-	"min_motion_frames": 10,
+	"min_upload_seconds": 5,
+	"min_motion_frames": 5,
 	"camera_warmup_time": 1,
 	"delta_thresh": 5,
 	"blur_size": [21, 21], 
