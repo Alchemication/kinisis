@@ -3,7 +3,7 @@
 	"min_upload_seconds": 6,
 	"min_motion_frames": 10,
 	"camera_warmup_time": 2,
-	"delta_thresh": 6,
+	"delta_thresh": 8,
 	"blur_size": [21, 21], 
 	"resolution": [800, 608],
 	"fps": 16,

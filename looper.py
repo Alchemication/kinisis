@@ -39,12 +39,10 @@ class Looper():
         
         # allow the camera to warmup, then initialize the average frame, last
         # uploaded timestamp, and frame motion counter
-        print("[INFO] warming up...")
+        print("[INFO] Warming up camera...")
         time.sleep(self.conf["camera_warmup_time"])
         avg = None
         lastUploaded = datetime.datetime.now()
-        motionCounter = 0
-        print('[INFO] Talking to raspi started')
         
         # capture frames from the camera
         for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -119,11 +117,18 @@ class Looper():
                         
                         print('[INFO] Real motion detected!')
                         
+                        # save motion frame as jpg
+                        curTs = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+                        filename = "{}.jpg".format(curTs)
+                        filePath = "./img/{}".format(filename)
+                        print('[INFO] Saving file into {}'.format(filePath))
+                        cv2.imwrite(filePath, frame)
+                        
                         # check to see if we need post frame to the API
                         if self.conf["motion_detected_api"] != "":
-                            cv2.imwrite("./motion-detected-img.jpg", frame)
-                            files = {'upload_file': open("./motion-detected-img.jpg",'rb')}
-                            data = {"node": socket.gethostname()}
+                            
+                            files = {'file': open(filePath ,'rb')}
+                            data = {"node": socket.gethostname(), "filename": filename}
                         
                             try:
                                 print('[INFO] Trying PUT request with a file')
