@@ -8,5 +8,5 @@
 	"resolution": [800, 608],
 	"fps": 16,
 	"min_area": 5000,
-        "motion_detected_api": "http://lab-node1/gadget/img-interrogator"
+        "motion_detected_api": "http://lab-node1:50001/img-interrogator"
 }
