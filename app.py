@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # instantiate looper object and start background processing
 # add this crazy hack, otherwise it will be called twice:
-if app.debug and os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+if (app.debug and os.environ.get('WERKZEUG_RUN_MAIN') == 'true') or not app.debug:
     lp = Looper()
     thread = threading.Thread(target=lp.start)
     thread.start()
