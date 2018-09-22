@@ -127,7 +127,7 @@ class Looper():
                         
                             try:
                                 print('[INFO] Trying PUT request with a file')
-                                requests.put(self.conf["motion_detected_api"], files=files, data=data)
+                                #requests.put(self.conf["motion_detected_api"], files=files, data=data)
                             except requests.exceptions.RequestException as e:
                                 print('[ERROR] Request failed', e)
                             else:
